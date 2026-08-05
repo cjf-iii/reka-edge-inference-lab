@@ -1,0 +1,19 @@
+{
+  "prompts": [
+    {
+      "case_id": "inference-definition",
+      "modality": "text",
+      "prompt": "In two sentences, distinguish model inference from model training for a technical buyer."
+    },
+    {
+      "case_id": "latency-throughput",
+      "modality": "text",
+      "prompt": "Explain why increasing concurrency can improve throughput while worsening p95 latency."
+    },
+    {
+      "case_id": "capacity-discovery",
+      "modality": "text",
+      "prompt": "List the three workload facts needed before estimating inference capacity."
+    }
+  ]
+}

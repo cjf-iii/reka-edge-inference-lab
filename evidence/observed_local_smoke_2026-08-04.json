@@ -1,0 +1,93 @@
+{
+  "evidence_type": "observed-local",
+  "limitations": [
+    "One local request proves execution on this machine, not production capacity.",
+    "Load time and first-run compilation differ from warm request latency.",
+    "This Transformers/MPS path is not the Linux/CUDA vllm-reka serving path."
+  ],
+  "model": "RekaAI/reka-edge-2603",
+  "model_revision": "492c81c225fbf5f3263a8245b00827721b119a13",
+  "provider": "transformers-mps",
+  "recorded_at_utc": "2026-08-05T05:11:15.153781+00:00",
+  "records": [
+    {
+      "case_id": "owned-multimodal-card",
+      "e2e_ms": 2147.455833001004,
+      "error": null,
+      "evidence_type": "observed-local",
+      "input_tokens": 220,
+      "metadata": {
+        "device": "mps",
+        "dtype": "float16",
+        "image_path": "artifacts/owned_multimodal_card.png",
+        "image_path_scope": "working-directory-relative",
+        "image_sha256": "b84136259549347123b33e4e064145e85ebf58a82616bed340418ebc32d88fc4",
+        "max_new_tokens": 96,
+        "model_load_seconds": 9.266615375003312,
+        "model_revision": "492c81c225fbf5f3263a8245b00827721b119a13",
+        "mps_allocated_after_bytes": 14279050240,
+        "mps_allocated_before_bytes": 14261748736
+      },
+      "model": "RekaAI/reka-edge-2603",
+      "output_text": "Blue square, Red circle, Yellow triangle. Request ID: REKA-EDGE-LAB-001.",
+      "output_tokens": 21,
+      "provider": "transformers-mps",
+      "request_id": "local-0001",
+      "started_offset_ms": 0,
+      "status": "ok",
+      "token_count_source": "model-tokenizer",
+      "ttft_ms": 1158.8797500007786
+    }
+  ],
+  "schema_version": 1,
+  "summary": {
+    "concurrency": 1,
+    "e2e_ms": {
+      "max": 2147.455833001004,
+      "mean": 2147.455833001004,
+      "min": 2147.455833001004,
+      "p50": 2147.455833001004,
+      "p95": 2147.455833001004,
+      "p99": 2147.455833001004
+    },
+    "elapsed_seconds": 2.147455833001004,
+    "failure_count": 0,
+    "inter_token_latency_ms": {
+      "max": 49.428804150011274,
+      "mean": 49.428804150011274,
+      "min": 49.428804150011274,
+      "p50": 49.428804150011274,
+      "p95": 49.428804150011274,
+      "p99": 49.428804150011274
+    },
+    "output_tokens_per_second": 9.779013694848913,
+    "request_count": 1,
+    "request_throughput_per_second": 0.4656673188023292,
+    "success_count": 1,
+    "success_rate": 1.0,
+    "token_count_sources": [
+      "model-tokenizer"
+    ],
+    "ttft_ms": {
+      "max": 1158.8797500007786,
+      "mean": 1158.8797500007786,
+      "min": 1158.8797500007786,
+      "p50": 1158.8797500007786,
+      "p95": 1158.8797500007786,
+      "p99": 1158.8797500007786
+    }
+  },
+  "system": {
+    "architecture": "arm64",
+    "boundary": "This path uses Transformers with Apple MPS. The official vllm-reka server is a separate Linux/CUDA deployment path.",
+    "hardware_eligible": true,
+    "macos_version": "26.6",
+    "memory_gib": 128.0,
+    "model_id": "RekaAI/reka-edge-2603",
+    "model_revision": "492c81c225fbf5f3263a8245b00827721b119a13",
+    "model_source": "https://huggingface.co/RekaAI/reka-edge-2603",
+    "operating_system": "Darwin",
+    "torch_installed": true,
+    "transformers_installed": true
+  }
+}

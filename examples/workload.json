@@ -1,0 +1,15 @@
+{
+  "name": "Multimodal archive intelligence pilot",
+  "modality": "multimodal",
+  "steady_requests_per_second": 0.8,
+  "peak_multiplier": 4.0,
+  "average_input_tokens": 850,
+  "average_output_tokens": 140,
+  "monthly_requests": 180000,
+  "target_p95_ms": 2500,
+  "target_utilization": 0.7,
+  "video_minutes_indexed_per_month": 12000,
+  "video_searches_per_month": 45000,
+  "privacy_requirement": "private endpoint or customer-controlled deployment",
+  "deployment_preference": "undecided"
+}

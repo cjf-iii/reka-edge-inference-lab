@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reka-edge-inference-lab"
+version = "0.1.0"
+description = "Buyer-facing multimodal inference evaluation with Reka Edge and OpenAI-compatible endpoints."
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+license = "MIT"
+authors = [{ name = "CJ Fleming" }]
+dependencies = [
+  "httpx>=0.28,<0.29",
+  "pillow>=11,<13",
+]
+
+[dependency-groups]
+dev = [
+  "ruff>=0.16,<0.17",
+]
+local = [
+  "av>=14,<17",
+  "einops>=0.8,<0.9",
+  "imageio>=2.37,<3",
+  "tiktoken>=0.9,<1",
+  "torch>=2.8,<3",
+  "torchvision>=0.23,<1",
+  "transformers==4.57.3",
+]
+notebook = [
+  "ipykernel>=7,<8",
+  "jupyterlab>=4.5,<5",
+  "nbconvert>=7.17,<8",
+]
+
+[project.scripts]
+reka-infer = "reka_inference_lab.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP", "B"]

@@ -1,0 +1,18 @@
+{
+  "name": "Reka Edge Chat plus Reka Vision public developer units",
+  "checked_at": "2026-08-04",
+  "source_url": "https://docs.reka.ai/pricing",
+  "input_per_million_tokens": 0.10,
+  "output_per_million_tokens": 0.10,
+  "image_each": 0.005,
+  "video_per_minute": 0.03,
+  "audio_per_minute": 0.0,
+  "video_index_per_minute": 0.05,
+  "video_search_each": 0.005,
+  "notes": [
+    "Chat unit prices came from https://docs.reka.ai/pricing.",
+    "Vision indexing and search units came from https://docs.reka.ai/vision/pricing.",
+    "This mixed scenario is an estimate, not a quote or invoice.",
+    "Enterprise capacity, storage, discounts, and support require current vendor terms."
+  ]
+}

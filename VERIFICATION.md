@@ -1,6 +1,6 @@
 # Verification record
 
-Status: local implementation and Reka Edge execution verified; clean-checkout release gate pending.
+Status: local Reka Edge execution and clean-archive release gate verified.
 
 ## Observed Reka Edge smoke test
 
@@ -54,8 +54,19 @@ uv run reka-infer verify artifacts/demo
 - Artifact verifier: passed with `evidence_type=simulated`, concurrency levels 1/2/4/8, and pricing checked August 4, 2026.
 - Rendered HTML: visually inspected at 1440 × 1800; the simulation warning, metrics, capacity boundary, discovery questions, and recommendations were legible.
 
-## Still required before publication
+## Clean-archive release gate
 
-- Run the same locked offline gate from a clean Git archive.
-- Confirm Git status, tracked file modes, and tracked-secret scan.
-- Record the clean-checkout commit and results below.
+Commit `bf637d1ceacc333f420119a32683ce254397503c` was exported with `git archive` into an empty temporary directory on August 4, 2026 PDT. From that archive—not the development working tree—the following passed:
+
+- `uv sync --locked --group dev --group notebook` with CPython 3.12.13;
+- Ruff lint and format checks;
+- all 19 unit and integration tests;
+- headless execution of `notebooks/01_workload_to_decision.ipynb`;
+- the 24-request offline report demo and the 96-record concurrency sweep at levels 1/2/4/8;
+- the fail-closed artifact verifier and executed-notebook JSON parse.
+
+The committed file modes were inspected: the pre-push hook and artifact-verification script are executable; source, evidence, documentation, notebooks, workflows, and configuration are regular files. The staged-tree scan found no absolute user path, private résumé, model weight, private key, or credential. The README contains the intentional placeholder `REKA_API_KEY="your-key"`.
+
+## Publication boundary
+
+The local repository has no public remote yet. Public-current status requires the reviewed commit to be visible on GitHub and its GitHub Actions gate to pass. A live Reka API sweep also requires the candidate's own authorized API key; it is not part of the credential-free release gate.

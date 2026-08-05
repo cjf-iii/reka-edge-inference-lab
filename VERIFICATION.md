@@ -67,6 +67,8 @@ Commit `bf637d1ceacc333f420119a32683ce254397503c` was exported with `git archive
 
 The committed file modes were inspected: the pre-push hook and artifact-verification script are executable; source, evidence, documentation, notebooks, workflows, and configuration are regular files. The staged-tree scan found no absolute user path, private résumé, model weight, private key, or credential. The README contains the intentional placeholder `REKA_API_KEY="your-key"`.
 
-## Publication boundary
+## Publication record
 
-The local repository has no public remote yet. Public-current status requires the reviewed commit to be visible on GitHub and its GitHub Actions gate to pass. A live Reka API sweep also requires the candidate's own authorized API key; it is not part of the credential-free release gate.
+The repository is public at [github.com/cjf-iii/reka-edge-inference-lab](https://github.com/cjf-iii/reka-edge-inference-lab). Initial release commit `459c3c361d9e1c7b25d3765880bcbc28e873b968` matched the local branch exactly and passed the public [`tests` workflow](https://github.com/cjf-iii/reka-edge-inference-lab/actions/runs/30977830277) on August 4, 2026 PDT.
+
+A live Reka API sweep still requires the candidate's own authorized API key; it is not part of the credential-free release gate or the local-model smoke record.

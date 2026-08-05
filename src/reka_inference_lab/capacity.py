@@ -52,6 +52,10 @@ def build_capacity_plan(
     video_index_cost = workload.video_minutes_indexed_per_month * pricing.video_index_per_minute
     video_search_cost = workload.video_searches_per_month * pricing.video_search_each
     monthly_public_unit_cost = input_cost + output_cost + video_index_cost + video_search_cost
+    success_rate = float(summary.get("success_rate", 0))
+    if success_rate <= 0:
+        raise ValueError("Benchmark success rate must be positive for a per-success estimate")
+    represented_successful_tasks = workload.monthly_requests * success_rate
 
     observed_p95 = float(e2e["p95"])
     recommendations: list[str] = []
@@ -114,6 +118,13 @@ def build_capacity_plan(
             "video_indexing": video_index_cost,
             "video_search": video_search_cost,
             "total": monthly_public_unit_cost,
+            "planned_requests": workload.monthly_requests,
+            "observed_success_rate_basis": success_rate,
+            "represented_successful_tasks": represented_successful_tasks,
+            "per_planned_request": monthly_public_unit_cost / workload.monthly_requests,
+            "per_successful_task_at_observed_rate": (
+                monthly_public_unit_cost / represented_successful_tasks
+            ),
             "currency": "USD",
             "excludes": [
                 "retries and failed work",
@@ -121,6 +132,7 @@ def build_capacity_plan(
                 "private endpoints or dedicated capacity",
                 "engineering and operations",
                 "taxes and negotiated discounts",
+                "changes in workload or success rate outside the recorded benchmark",
             ],
         },
         "discovery_questions": [
@@ -137,6 +149,8 @@ def build_capacity_plan(
             "A benchmarked endpoint is treated as one capacity unit; it is not assumed to equal one GPU.",
             "The estimate extrapolates from the tested prompt mix and concurrency and is not an SLA.",
             "Public prices are dated inputs and must be rechecked before a buyer-facing proposal.",
+            "The per-success amount amortizes represented public units over planned requests adjusted "
+            "by the recorded benchmark success rate; it is not an invoice or guaranteed unit cost.",
             "Private capacity and negotiated enterprise terms require a vendor quote.",
         ],
     }

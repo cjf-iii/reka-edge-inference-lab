@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from reka_inference_lab.benchmark import simulate_benchmark
+from reka_inference_lab.benchmark import SimulatedProfile, simulate_benchmark
 from reka_inference_lab.capacity import build_capacity_plan
 from reka_inference_lab.models import Pricing, PromptCase, Workload
 
@@ -63,6 +63,22 @@ class CapacityTests(unittest.TestCase):
         self.assertAlmostEqual(cost["video_indexing"], 5.0)
         self.assertAlmostEqual(cost["video_search"], 5.0)
         self.assertAlmostEqual(cost["total"], 12.0)
+        self.assertEqual(cost["represented_successful_tasks"], 10000)
+        self.assertAlmostEqual(cost["per_successful_task_at_observed_rate"], 0.0012)
+
+    def test_cost_per_success_uses_recorded_failure_rate(self) -> None:
+        benchmark = simulate_benchmark(
+            [PromptCase(case_id="p", prompt="test")],
+            request_count=10,
+            concurrency=2,
+            model="demo",
+            profile=SimulatedProfile(failure_every=5),
+        )
+        plan = build_capacity_plan(benchmark, self.workload, self.pricing)
+        cost = plan["monthly_public_unit_cost"]
+        self.assertEqual(cost["observed_success_rate_basis"], 0.8)
+        self.assertEqual(cost["represented_successful_tasks"], 8000)
+        self.assertAlmostEqual(cost["per_successful_task_at_observed_rate"], 0.0015)
 
     def test_private_workload_generates_security_question(self) -> None:
         plan = build_capacity_plan(self.benchmark, self.workload, self.pricing)

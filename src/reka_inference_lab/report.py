@@ -14,6 +14,10 @@ def _money(value: float) -> str:
     return f"${value:,.2f}"
 
 
+def _unit_money(value: float) -> str:
+    return f"${value:,.4f}"
+
+
 def _metric(distribution: dict[str, Any] | None, key: str) -> str:
     if not distribution:
         return "n/a"
@@ -88,8 +92,12 @@ One capacity unit means one endpoint/configuration matching the benchmark. It is
 | Video indexing | {_money(cost["video_indexing"])} |
 | Video search | {_money(cost["video_search"])} |
 | **Total represented public units** | **{_money(cost["total"])}** |
+| Planned requests | {cost["planned_requests"]:,.0f} |
+| Recorded success-rate basis | {cost["observed_success_rate_basis"]:.1%} |
+| Represented successful tasks | {cost["represented_successful_tasks"]:,.0f} |
+| **Cost per represented successful task** | **{_unit_money(cost["per_successful_task_at_observed_rate"])}** |
 
-Pricing source: [{plan["pricing"]["name"]}]({plan["pricing"]["source_url"]}) checked {plan["pricing"]["checked_at"]}. This excludes negotiated enterprise capacity and the other exclusions preserved in `capacity_plan.json`.
+Pricing source: [{plan["pricing"]["name"]}]({plan["pricing"]["source_url"]}) checked {plan["pricing"]["checked_at"]}. The per-success amount amortizes the represented public units over planned requests adjusted by this benchmark's success rate; it is not an invoice. This excludes negotiated enterprise capacity and the other exclusions preserved in `capacity_plan.json`.
 
 ## Discovery questions
 
@@ -153,6 +161,7 @@ def html_report(benchmark: dict[str, Any], plan: dict[str, Any]) -> str:
     <tr><td>Peak request demand</td><td>{plan["demand"]["peak_requests_per_second"]:.3f}/s</td></tr>
     <tr><td>Target / observed p95</td><td>{plan["workload"]["target_p95_ms"]:,.0f} / {plan["observed_capacity_unit"]["p95_e2e_ms"]:,.1f} ms</td></tr>
     <tr><td>Public-unit monthly estimate</td><td>{_money(cost["total"])}</td></tr>
+    <tr><td>Public-unit cost / represented success</td><td>{_unit_money(cost["per_successful_task_at_observed_rate"])}</td></tr>
     <tr><td>Private capacity price</td><td>quote required</td></tr>
   </table>
   <h2>Questions that decide the deal</h2><ol>{question_items}</ol>

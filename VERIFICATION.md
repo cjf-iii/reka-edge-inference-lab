@@ -48,7 +48,7 @@ uv run reka-infer verify artifacts/demo
 ```
 
 - Ruff: passed.
-- Unit and integration tests: 19 passed.
+- Unit and integration tests: 20 passed in the current public release.
 - Notebook: executed without a failed cell.
 - Offline demo: 24 simulated report requests plus a 96-record, four-level simulated concurrency sweep reconciled; generated JSON, Markdown, HTML, and owned image artifacts.
 - Artifact verifier: passed with `evidence_type=simulated`, concurrency levels 1/2/4/8, and pricing checked August 4, 2026.

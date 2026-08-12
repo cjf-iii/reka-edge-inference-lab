@@ -17,7 +17,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-  "ruff>=0.16,<0.17",
+  "ruff>=0.16.2,<0.17",
 ]
 local = [
   "av>=14,<17",

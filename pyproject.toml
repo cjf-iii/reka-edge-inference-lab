@@ -26,7 +26,7 @@ local = [
   "tiktoken>=0.9,<1",
   "torch>=2.8,<3",
   "torchvision>=0.23,<1",
-  "transformers==4.57.3",
+  "transformers==5.15.0",
 ]
 notebook = [
   "ipykernel>=7,<8",
